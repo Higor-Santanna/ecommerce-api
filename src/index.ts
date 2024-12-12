@@ -1,16 +1,11 @@
-import express, { Request, Response } from "express"
+import express from "express";
+import { routes } from "./routes";
 
 const app = express();
 const port = 3000;
 
-app.get("/", (req: Request, res: Response) => {
-    res.send("Tá funcioando automático vom devb");
-});
-
-app.get("/users", (req: Request, res: Response) => {
-    res.send("Tá funcionando os usuários")
-});
+routes(app);
 
 app.listen(port, () => {
-    console.log(`Servidor funcioando na porta ${port}`);
+    console.log(`Servidor funcionando na porta ${port}`);
 });
