@@ -1,9 +1,8 @@
-import express, {Request, Response} from "express"
+import express from "express"
+import { UsersController } from "../controllers/users.controller";
 
 const userRoutes = express.Router();
 
-userRoutes.get("/users", (req: Request, res: Response) => {
-    res.send("Tá funcionando os usuários")
-});
+userRoutes.get("/users", UsersController.getAll);
 
 export { userRoutes }
