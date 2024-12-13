@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx tsc-watch --onSuccess \"node ./lib/index.js"
+    "dev": "npx tsc-watch --onSuccess \"node --env-file=.env ./lib/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "firebase-admin": "^13.0.1"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.8",

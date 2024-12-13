@@ -4,5 +4,6 @@ import { UsersController } from "../controllers/users.controller";
 const userRoutes = express.Router();
 
 userRoutes.get("/users", UsersController.getAll);
+userRoutes.post("/users", UsersController.save)
 
 export { userRoutes }
