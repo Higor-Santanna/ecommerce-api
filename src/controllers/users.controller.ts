@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { getFirestore } from "firebase-admin/firestore";
 import { ValidationError } from "../errors/validation.error";
+import { NotFoundError } from "../errors/not-found.error";
 
 type User = {
     id: number,
@@ -44,10 +45,14 @@ export class UsersController {
         try {
             let userId = req.params.id; //pega o e armazena o ID do usuário
             const doc = await getFirestore().collection("users").doc(userId).get(); //Trás da coleção o ID especifico solicitado pelo usuário
-            res.send({
-                id: doc.id,
-                ...doc.data()
-            });
+            if (doc.exists) { //doc.exists é uma propriedade do documento que confirma sua existância.
+                res.send({
+                    id: doc.id,
+                    ...doc.data()
+                });   
+            } else {
+                throw new NotFoundError("Usuário não encontrado")
+            };
         } catch (error) {
            next(error);
         };
@@ -57,11 +62,17 @@ export class UsersController {
         try {
             let userId = req.params.id;
             let user = req.body as User;
-            await getFirestore().collection("users").doc(userId).set({
-                nome: user.nome,
-                email: user.email
-            });
-            res.send({ message: "Informações do usuário atualizado" });
+            let docRef = getFirestore().collection("users").doc(userId);
+
+            if((await docRef.get()).exists){
+                await docRef.set({
+                    nome: user.nome,
+                    email: user.email
+                });
+                res.status(201).send({ message: "Informações do usuário atualizado" });
+            } else {
+                throw new NotFoundError("Usuário não encontrado")
+            }
         } catch (error) {
             next(error);
         };
@@ -71,7 +82,7 @@ export class UsersController {
         try {
             let userId = req.params.id;
             await getFirestore().collection("users").doc(userId).delete();
-            res.send({ message: "Usuário deletado" });
+            res.status(204).send({ message: "Usuário deletado" });
         } catch (error) {
             next(error);
         };
