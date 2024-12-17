@@ -1,13 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { getFirestore } from "firebase-admin/firestore";
-import { ValidationError } from "../errors/validation.error";
 import { NotFoundError } from "../errors/not-found.error";
-
-type User = {
-    id: number,
-    nome: string,
-    email: string
-}
+import { User } from "../models/user.models";
 
 export class UsersController {
     static async getAll(req: Request, res: Response, next: NextFunction) {
@@ -23,9 +17,6 @@ export class UsersController {
 
     static async save(req: Request, res: Response, next: NextFunction) {
         let user = req.body;
-        if (!user.email || user.email?.length === 0) {
-            throw new ValidationError("E-mail obrigatório")
-        };
         const userSave = await getFirestore().collection("users").add(user); //Nesse ponto ele cria uma coleção e faz a conexão deste controller com nosso banco dados onde será adicionado novos usuários
         res.status(201).send({
             message: `Usuário ${userSave} criado com sucesso.`
