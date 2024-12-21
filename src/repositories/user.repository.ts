@@ -20,6 +20,7 @@ export class UserRepository {
     };
 
     async save(user: User): Promise<void> {
+        delete user.password
         await this.collection.add(user); //Nesse ponto ele cria uma coleção e faz a conexão deste controller com nosso banco dados onde será adicionado novos usuários
     };
 
