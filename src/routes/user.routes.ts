@@ -1,10 +1,10 @@
-import express from "express"
+import { Router } from "express"
 import { UsersController } from "../controllers/users.controller";
 import asyncHandler from 'express-async-handler';
 import { celebrate, Segments } from "celebrate";
 import { userSchema } from "../models/user.models";
 
-const userRoutes = express.Router();
+const userRoutes = Router();
 
 userRoutes.get("/users", asyncHandler(UsersController.getAll));
 userRoutes.post("/users", celebrate({[Segments.BODY]: userSchema}),asyncHandler(UsersController.save));
