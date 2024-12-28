@@ -20,7 +20,7 @@ export class UserRepository {
     };
 
     async save(user: User): Promise<void> {
-        delete user.password
+        delete user.password;
         await this.collection.add(user); //Nesse ponto ele cria uma coleção e faz a conexão deste controller com nosso banco dados onde será adicionado novos usuários
     };
 
@@ -36,8 +36,8 @@ export class UserRepository {
         };
     };
 
-    async update(id: string, user: User): Promise<void> {
-        let docRef = this.collection.doc(id);
+    async update(user: User){
+        let docRef = this.collection.doc(user.id);
         await docRef.set({
             nome: user.nome,
             email: user.email

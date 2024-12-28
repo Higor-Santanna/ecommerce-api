@@ -4,7 +4,7 @@ import { UserService } from "../services/user.service";
 
 export class UsersController {
     static async getAll(req: Request, res: Response, next: NextFunction) {
-        res.json(await new UserService().getAll()); //Essa função do Express automaticamente converte o objeto JavaScript users em uma string JSON e a envia como resposta.
+        res.send(await new UserService().getAll()); //Essa função do Express automaticamente converte o objeto JavaScript users em uma string JSON e a envia como resposta.
     };
 
     static async save(req: Request, res: Response, next: NextFunction) {

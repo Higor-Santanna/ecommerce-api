@@ -1,5 +1,5 @@
 import express from "express";
-import { initializeApp as initializeAdmin} from 'firebase-admin/app';
+import { initializeApp as initializeAdmin} from "firebase-admin/app";
 import { initializeApp as initializeFirebaseApp } from "firebase/app";
 import { routes } from "./routes";
 import { errorHandler } from "./middlewares/error-handler.middleware";

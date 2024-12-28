@@ -17,10 +17,10 @@ export class UserService {
         return this.userRepository.getAll();//pega a repostas de todos os dados que foram requisitados.
     };
 
-    async save(user: User): Promise<void> {
+    async save(user: User) {
         const userAuth = await this.authService.create(user);
         user.id = userAuth.uid;//Deixa o ID do authentication igual do firestore
-        return this.userRepository.save(user);
+        await this.userRepository.update(user);
     };
 
     async getById(id: string): Promise<User> {
@@ -32,14 +32,14 @@ export class UserService {
     };
 
     async update(id: string, user: User): Promise<void>{
-        const userUp = await this.userRepository.getById(id);//pega o ID do usuário
-        if(!userUp){
+        const _user = await this.userRepository.getById(id);//pega o ID do usuário
+        if(!_user){
             throw new NotFoundError("Usuário não encontrado");
         } //verifica se não é valido
 
-        userUp.nome = user.nome; //armazena o nome atualizado
-        userUp.email = user.email; //armazena o email atualizado.
-        this.userRepository.update(id, userUp); //Retorna as informações atualizadas.
+        _user.nome = user.nome; //armazena o nome atualizado
+        _user.email = user.email; //armazena o email atualizado.
+        await this.userRepository.update(_user); //Retorna as informações atualizadas.
     };
 
     async delete(id: string): Promise<void> {
