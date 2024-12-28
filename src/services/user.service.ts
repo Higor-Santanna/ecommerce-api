@@ -39,10 +39,13 @@ export class UserService {
 
         _user.nome = user.nome; //armazena o nome atualizado
         _user.email = user.email; //armazena o email atualizado.
+
+        await this.authService.update(id, user);
         await this.userRepository.update(_user); //Retorna as informações atualizadas.
     };
 
     async delete(id: string): Promise<void> {
-        return this.userRepository.delete(id);
+        await this.authService.delete(id); //exlcui o usuário do banco de dados e do authetication
+        await this.userRepository.delete(id); //exclui o usuário apenas do banco de dados
     };
 };
