@@ -22,7 +22,7 @@ export const companySchema = Joi.object().keys({
     ),
     razaoSocial: Joi.string().required(),
     nomeFantasia: Joi.string().required(),
-    telefone: Joi.string().required(),
+    telefone: Joi.string().regex(/^(?!.*00000000)[1-9][0-9]{9,10}$/).required(),
     horarioFuncionamento: Joi.string().required(),
     endereco: Joi.string().required(),
     localizacao: Joi.string().required(),
