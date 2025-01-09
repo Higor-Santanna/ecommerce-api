@@ -23,7 +23,7 @@ export class UsersController {
     static async update(req: Request, res: Response, next: NextFunction) {
         let userId = req.params.id;
         let user = req.body as User;
-        new UserService().update(userId, user);
+        await new UserService().update(userId, user);
         res.status(201).send({ message: "Informações do usuário atualizado" });
     };
 

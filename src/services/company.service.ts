@@ -32,7 +32,7 @@ export class CompanyService {
             throw new NotFoundError("Empresa não encontrado");
         } //verifica se não é valido
 
-       _company.logomarca = company.logomarca,
+        _company.logomarca = company.logomarca,
         _company.cpfCnpj = company.cpfCnpj,
         _company.razaoSocial = company.razaoSocial,
         _company.nomeFantasia = company.nomeFantasia,

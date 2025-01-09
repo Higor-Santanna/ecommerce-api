@@ -8,8 +8,7 @@ export class CompaniesController {
     };
 
     static async save(req: Request, res: Response) {
-        let company = req.body;
-        await new CompanyService().save(company); 
+        await new CompanyService().save(req.body); 
         res.status(201).send({
             message: `Empresa cadastrada com sucesso.`
         });
@@ -23,7 +22,7 @@ export class CompaniesController {
     static async update(req: Request, res: Response) {
         let companyId = req.params.id;
         let company = req.body as Company;
-        new CompanyService().update(companyId, company);
-        res.status(201).send({ message: "Informações da empresa atualizadas" });
+        await new CompanyService().update(companyId, company);
+        res.send({ message: "Informações da empresa atualizadas" });
     };
 };
