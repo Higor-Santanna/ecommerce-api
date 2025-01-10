@@ -2,7 +2,7 @@ import { Joi } from "celebrate";
 
 export type Company = {
     id?: string;
-    logomarca: string;
+    logoMarca: string;
     cpfCnpj: string;
     razaoSocial: string;
     nomeFantasia: string;
@@ -15,7 +15,7 @@ export type Company = {
 }
 
 export const newCompanySchema = Joi.object().keys({
-    logoMarca: Joi.string().allow(null),
+    logoMarca: Joi.string().base64().required(),
     cpfCnpj: Joi.alternatives().try(
         Joi.string().length(11).required(),
         Joi.string().length(14).required()
@@ -31,7 +31,7 @@ export const newCompanySchema = Joi.object().keys({
 });
 
 export const updateCompanySchema = Joi.object().keys({
-    logoMarca: Joi.string().allow(null),
+    logoMarca: Joi.string().base64().required(),
     cpfCnpj: Joi.alternatives().try(
         Joi.string().length(11).required(),
         Joi.string().length(14).required()

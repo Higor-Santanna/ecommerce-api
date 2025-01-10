@@ -1,13 +1,16 @@
 import { NotFoundError } from "../errors/not-found.error";
 import { Company } from "../models/company.models";
 import { CompanyRepository } from "../repositories/company.repository";
+import { UploadFileService } from "./upload-file.service";
 
 export class CompanyService {
 
     private companyRepository: CompanyRepository; //Declara o userRepository como uma variável global.
+    private uploadFileService: UploadFileService;
 
     constructor() {
         this.companyRepository = new CompanyRepository();//Inicializa o repository
+        this.uploadFileService = new UploadFileService(/*"images/companies/"*/)//Diretório aonde será armazenado as imagens das empresas.
     };
 
     async getAll(): Promise<Company[]> { //Nesse ponto dá aplicação a função recebe uma promessa que é de um array vazio 
@@ -15,6 +18,8 @@ export class CompanyService {
     };
 
     async save(company: Company) {
+        const logomarcaUrl =  await this.uploadFileService.upload(company.logoMarca);
+        company.logoMarca = logomarcaUrl
         await this.companyRepository.save(company);
     };
 
@@ -32,7 +37,7 @@ export class CompanyService {
             throw new NotFoundError("Empresa não encontrado");
         } //verifica se não é valido
 
-        _company.logomarca = company.logomarca,
+        _company.logoMarca = company.logoMarca,
         _company.cpfCnpj = company.cpfCnpj,
         _company.razaoSocial = company.razaoSocial,
         _company.nomeFantasia = company.nomeFantasia,
