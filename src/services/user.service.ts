@@ -1,7 +1,7 @@
-import { NotFoundError } from "../errors/not-found.error";
-import { User } from "../models/user.models";
-import { UserRepository } from "../repositories/user.repository";
-import { AuthService } from "./auth.service";
+import { NotFoundError } from "../errors/not-found.error.js";
+import { User } from "../models/user.models.js";
+import { UserRepository } from "../repositories/user.repository.js";
+import { AuthService } from "./auth.service.js";
 
 export class UserService {
 
