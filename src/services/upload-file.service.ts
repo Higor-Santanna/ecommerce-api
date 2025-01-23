@@ -2,15 +2,24 @@ import fs from "node:fs";
 import { getDownloadURL, getStorage } from "firebase-admin/storage"
 import { fileTypeFromBuffer } from "file-type";
 import { randomUUID } from "node:crypto";
+import { ValidationError } from "../errors/validation.error.js";
 
 export class UploadFileService {
 
     constructor(private path : string = ""){} //O path tem a função de definir o caminho diretório dos nossos arquivos dentro do Cloud Storage
 
     async upload(base64: string): Promise<string>{
-        const fileBuffer = Buffer.from(base64, "base64"); //transformar a imagem que está na base64 em um buffer.
+        const fileBuffer = Buffer.from(base64, "base64"); //transformar a imagem que está na base64 em um buffer.   
 
-        const fileType = await fileTypeFromBuffer(fileBuffer)//diz para o fileName constante abaixo qual é o tipo de arquivo que está chegando.
+        const fileType = await fileTypeFromBuffer(fileBuffer);//diz para o fileName constante abaixo qual é o tipo de arquivo que está chegando.
+
+        if (!fileType) {
+            throw new ValidationError("A extensão do arquivo não é válida!");
+        };
+
+        if (fileType.mime !== "image/jpeg" && fileType.mime !== "image/png") {
+            throw new ValidationError("A imagem precisa está no formato de PNG ou JPEG.");
+        }
 
         const fileName = `${randomUUID().toString()}.${fileType?.ext}`;
         fs.writeFileSync(fileName, fileBuffer);//Armazenar a imagem no disco
