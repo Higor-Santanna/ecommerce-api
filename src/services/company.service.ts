@@ -33,10 +33,7 @@ export class CompanyService {
     };
 
     async update(id: string, company: Company): Promise<void> {
-        const _company = await this.companyRepository.getById(id);//pega o ID do usuário
-        if (!_company) {
-            throw new NotFoundError("Empresa não encontrado");
-        } //verifica se não é valido
+        const _company = await this.getById(id);
 
         if (!this.isValidUrl(company.logoMarca)){
             _company.logoMarca = await this.uploadFileService.upload(company.logoMarca);
