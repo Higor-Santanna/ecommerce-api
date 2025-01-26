@@ -15,10 +15,8 @@ export const auth = (app: express.Express) =>{
         if(token){
             try {
                 const decodeIdToken: DecodedIdToken = await getAuth().verifyIdToken(token, true) //verifica se o token é válido
-                console.log("Aqui tem todas as informações: ",decodeIdToken)
 
-                const user = await new UserService().getById(decodeIdToken.uid);
-                console.log("Aqui é só o UID: ", user);
+                const user = await new UserService().getById(decodeIdToken.uid)
 
                 if(!user){
                     return next(new ForbiddenError());

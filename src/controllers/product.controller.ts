@@ -8,6 +8,11 @@ export class ProductsController {
         res.send(await new ProductService().getAll());
     }
 
+    static async search(req: Request, res: Response) {
+        const categoriaId = req.query.categoriaId as string; // Pega a query com o ID e converte ela para um string com o AS.
+        res.send(await new ProductService().search(categoriaId));
+    }
+
     static async getById(req: Request, res: Response) {
         let productId = req.params.id;
         res.send(await new ProductService().getById(productId));
