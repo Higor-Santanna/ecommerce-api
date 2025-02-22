@@ -11,7 +11,7 @@ export class CompanyService {
 
     constructor() {
         this.companyRepository = new CompanyRepository();//Inicializa o repository
-        this.uploadFileService = new UploadFileService(/*"images/companies/"*/)//Diretório aonde será armazenado as imagens das empresas.
+        this.uploadFileService = new UploadFileService("images/companies/")//Diretório aonde será armazenado as imagens das empresas.
     };
 
     async getAll(): Promise<Company[]> { //Nesse ponto dá aplicação a função recebe uma promessa que é de um array vazio 

@@ -6,7 +6,7 @@ import { ValidationError } from "../errors/validation.error.js";
 
 export class UploadFileService {
 
-    constructor(private path : string = ""){} //O path tem a função de definir o caminho diretório dos nossos arquivos dentro do Cloud Storage
+    constructor(private path : string){} //O path tem a função de definir o caminho diretório dos nossos arquivos dentro do Cloud Storage
 
     async upload(base64: string): Promise<string>{
         const fileBuffer = Buffer.from(base64, "base64"); //transformar a imagem que está na base64 em um buffer.   
