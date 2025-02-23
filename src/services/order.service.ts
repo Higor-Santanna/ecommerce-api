@@ -1,5 +1,5 @@
 import { NotFoundError } from "../errors/not-found.error.js";
-import { Order } from "../models/order.model.js";
+import { Order, QueryParamsOrder } from "../models/order.model.js";
 import { OrderRepository } from "../repositories/order.repository.js";
 import { CompanyRepository } from "../repositories/company.repository.js";
 import { PaymentMethodRepository } from "../repositories/payment-method.repository.js";
@@ -24,13 +24,13 @@ export class OrderService {
         if(!empresa) {
             throw new NotFoundError("Empresa não encontrada!");
         };
-        order.empresa = empresa;
+        order.empresa = empresa; //atribui o nome da empresa que está no banco de dados, para o pedido em específico.
 
         const formaPagamento = await this.paymentMethodRepository.getById(order.formaPagamento.id);
         if(!formaPagamento){
             throw new NotFoundError("Forma de Pagamento não encontrada!");
         }
-        order.formaPagamento = formaPagamento;
+        order.formaPagamento = formaPagamento;//atribui a forma de pagamento que está no banco de dados, para a forma de pagemento do pedido.
 
         for (let item of order.items) {
             const produto = await this.productRepository.getById(item.produto.id);
@@ -38,8 +38,12 @@ export class OrderService {
                 throw new NotFoundError("Produto não encontrado!");
             };
             item.produto = produto;
-        }
+        } //Nesse laço e faz a verificação de cada item dentro do order.items que está dentro dos pedidos.
 
         await this.orderRepository.save(order);
-    }
-}
+    };
+
+    async search(query: QueryParamsOrder): Promise<Order[]> {
+       return this.orderRepository.search(query);// Faz a chamada do repository
+    };
+};
