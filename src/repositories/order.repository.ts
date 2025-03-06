@@ -1,5 +1,6 @@
 import { getFirestore, CollectionReference } from "firebase-admin/firestore";
 import { Order, QueryParamsOrder } from "../models/order.model.js";
+import dayjs from 'dayjs'
 
 export class OrderRepository {
 
@@ -20,10 +21,12 @@ export class OrderRepository {
         };
 
         if (queryParams.dataInicio) {
+            queryParams.dataInicio = dayjs(queryParams.dataInicio).add(1, "day").startOf("day").toDate(); //Aqui eu pego a data de início adiciona mais um dia com o add(1, "day"), e o startOf faz com que ele me traga o horário do início do dia.
             query = query.where("data", ">=", queryParams.dataInicio);
         };
 
         if (queryParams.dataFim) {
+            queryParams.dataFim = dayjs(queryParams.dataFim).add(1, "day").endOf("day").toDate(); //Aqui é a mesma logíca só que para o fim  do dia.
             query = query.where("data", "<=", queryParams.dataFim);
         };
 
