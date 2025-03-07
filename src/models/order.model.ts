@@ -4,8 +4,10 @@ import { PaymentMethod } from "./payment-method.model.js";
 import { OrderItem, orderItemSchema } from "./order-item.model.js";
 import { Address, orderAddressSchema } from "./address.model.js";
 import { Joi } from "celebrate";
+import { Timestamp } from "firebase-admin/firestore";
 
-export type Order = { 
+export class Order { 
+    id: string;
     empresa: Company;
     cliente: Customer;
     endereco: Address;
@@ -16,6 +18,20 @@ export type Order = {
     taxaEntrega: number;
     items: OrderItem[];
     status: OrderStatus;
+
+    constructor(data: any){
+        this.id = data.id;
+        this.empresa = data.empresa;
+        this.cliente = data.cliente;
+        this.endereco = data.endereco;
+        this.cpfCnpjCupom = data.cpfCnpjCupom;
+        this.data = data.data instanceof Timestamp ? data.data.toDate() : data.data //Se a data for um Timestamp, eu pego ele com um toDate e faço a conversão dele para uma data, caso ele não seja eu apenas faço atribuição direta
+        this.isEntrega = data.isEntrega;
+        this.formaPagamento = data.formaPagamento;
+        this.taxaEntrega = data.taxaEntrega;
+        this.items = data.items;
+        this.status = data.status;
+    }
 };
 
 export enum OrderStatus {

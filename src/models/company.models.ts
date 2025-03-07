@@ -1,8 +1,9 @@
 import { Joi } from "celebrate";
 import { phoneRegexPattern } from "../utils/regex-utils.js";
+import { DocumentData, FirestoreDataConverter, QueryDocumentSnapshot } from "firebase-admin/firestore";
 
-export type Company = {
-    id?: string;
+export class Company {
+    id: string;
     logoMarca: string;
     cpfCnpj: string;
     razaoSocial: string;
@@ -13,6 +14,20 @@ export type Company = {
     localizacao: string;
     taxaEntrega: number;
     ativa: boolean;
+
+    constructor(data: Company | any) {
+        this.id = data.id;
+        this.logoMarca = data.logoMarca;
+        this.cpfCnpj = data.cpfCnpj;
+        this.razaoSocial = data.razaoSocial;
+        this.nomeFantasia = data.nomeFantasia;
+        this.telefone = data.telefone;
+        this.horarioFuncionamento = data.horarioFuncionamento;
+        this.endereco = data.endereco;
+        this.localizacao = data.localizacao;
+        this.taxaEntrega = data.taxaEntrega;
+        this.ativa = data.ativa ?? true;
+    }
 }
 
 export const newCompanySchema = Joi.object().keys({
@@ -48,4 +63,27 @@ export const updateCompanySchema = Joi.object().keys({
     localizacao: Joi.string().trim().required(),
     taxaEntrega: Joi.number().required(),
     ativa: Joi.boolean().required()
-})
+});
+
+export const companyConverter: FirestoreDataConverter<Company> = {
+    toFirestore: (company: Company): DocumentData => {
+        return {
+            logoMarca: company.logoMarca,
+            cpfCnpj: company.cpfCnpj,
+            razaoSocial: company.razaoSocial,
+            nomeFantasia: company.nomeFantasia,
+            telefone: company.telefone,
+            horarioFuncionamento: company.horarioFuncionamento,
+            endereco: company.endereco,
+            localizacao: company.localizacao,
+            taxaEntrega: company.taxaEntrega,
+            ativa: company.ativa
+        }
+    },
+    fromFirestore: (snapshot: QueryDocumentSnapshot): Company => {
+        return new Company({
+            id: snapshot.id,
+            ...snapshot.data()
+        });
+    }
+}

@@ -1,42 +1,26 @@
-import { CollectionReference, getFirestore, QuerySnapshot } from "firebase-admin/firestore";
-import { Product } from "../models/product.models.js";
+import { CollectionReference, getFirestore } from "firebase-admin/firestore";
+import { Product, productConverter } from "../models/product.models.js";
 
 export class ProductRepository {
 
-    private collection: CollectionReference;
+    private collection: CollectionReference<Product>;
     constructor() {
-        this.collection = getFirestore().collection("products");
+        this.collection = getFirestore().collection("products").withConverter(productConverter);
     }
 
     async getAll(): Promise<Product[]> {
         const snapshot = await this.collection.get();
-        return this.snapshotToArray(snapshot);
+        return snapshot.docs.map(doc => doc.data());
     }
 
     async search(categoriaId: string): Promise<Product[]> {
-        const snapshot = await this.collection.where("categoria.id", "==", categoriaId).get();// nesse trecho eu acesso primeiro meu id da categoria através do categoria.id, o segundo campo é o filtro que seria o "==", e por último o valor que iremos passar que no caso acima é o categoriaID.
-        return this.snapshotToArray(snapshot);
-    }
-
-    private snapshotToArray(snapshot: QuerySnapshot): Product[] {
-        return snapshot.docs.map(doc => {
-            return {
-                id: doc.id,
-                ...doc.data()
-            };
-        }) as Product[];
+        const snapshot = await this.collection.where("categoria.id", "==", categoriaId).get();// nesse trecho eu acesso primeiro meu id da categoria através do categoria.id.
+        return snapshot.docs.map(doc => doc.data());
     }
 
     async getById(id: string): Promise<Product | null> {
         const doc = await this.collection.doc(id).get();
-        if (doc.exists) {
-            return {
-                id: doc.id,
-                ...doc.data()
-            } as Product;
-        } else {
-            return null;
-        }
+        return doc.data() ?? null;
     }
 
     async save(product: Product) {
@@ -44,15 +28,7 @@ export class ProductRepository {
     }
 
     async update(product: Product) {
-        let docRef = this.collection.doc(product.id!);
-        await docRef.set({
-            nome: product.nome,
-            descricao: product.descricao,
-            preco: product.preco,
-            imagem: product.imagem,
-            categoria: product.categoria,
-            ativa: product.ativa
-        });
+        await this.collection.doc(product.id).set(product);
     }
     
     async delete(id: string) {
@@ -60,7 +36,10 @@ export class ProductRepository {
     }
 
     async getCountByCategoria(categoriaId: string): Promise<number> {
-        const snapshotCount = await this.collection.where("categoria.id", "==", categoriaId).count().get();
+        const snapshotCount = await this.collection
+        .where("categoria.id", "==", categoriaId)
+        .count()
+        .get();
         return snapshotCount.data().count;
     }
 }
