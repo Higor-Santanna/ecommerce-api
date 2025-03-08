@@ -40,8 +40,6 @@ export class OrderService {
             item.produto = produto;
         } //Nesse laço e faz a verificação de cada item dentro do order.items que está dentro dos pedidos.
 
-        order.data = new Date();
-
         await this.orderRepository.save(order);
     };
 

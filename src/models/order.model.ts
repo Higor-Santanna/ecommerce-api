@@ -4,7 +4,7 @@ import { PaymentMethod } from "./payment-method.model.js";
 import { OrderItem, orderItemSchema } from "./order-item.model.js";
 import { Address, orderAddressSchema } from "./address.model.js";
 import { Joi } from "celebrate";
-import { DocumentData, FirestoreDataConverter, QueryDocumentSnapshot, Timestamp } from "firebase-admin/firestore";
+import { DocumentData, FieldValue, FirestoreDataConverter, QueryDocumentSnapshot, Timestamp } from "firebase-admin/firestore";
 
 export class Order {
     id: string;
@@ -18,6 +18,7 @@ export class Order {
     taxaEntrega: number;
     items: OrderItem[];
     status: OrderStatus;
+    observacoes: any;
 
     constructor(data: any) {
         this.id = data.id;
@@ -63,7 +64,8 @@ export const newOrderSchema = Joi.object().keys({
     }).required(),
     taxaEntrega: Joi.number().min(0).required(),
     items: Joi.array().min(1).items(orderItemSchema).required(),
-    status: Joi.string().only().allow(OrderStatus.pendente).default(OrderStatus.pendente)
+    status: Joi.string().only().allow(OrderStatus.pendente).default(OrderStatus.pendente),
+    observacoes: Joi.string().trim().allow(null).default(null)
 });
 
 export type QueryParamsOrder = {
@@ -106,7 +108,7 @@ export const orderConverter: FirestoreDataConverter<Order> = {
                 uf: order.endereco.uf
             },
             cpfCnpjCupom: order.cpfCnpjCupom,
-            data: order.data,
+            data: FieldValue.serverTimestamp(),// O fildValeu é uma função do firebase que salva o momento exato do registro do item no BD.
             isEntrega: order.isEntrega,
             formaPagamento: {
                 id: order.formaPagamento.id,
@@ -130,7 +132,8 @@ export const orderConverter: FirestoreDataConverter<Order> = {
                     observacao: item.observacao
                 };
             }),
-            status: order.status
+            status: order.status,
+            observacoes: order.observacoes
         }
     },
     fromFirestore: (snapshot: QueryDocumentSnapshot): Order => {
