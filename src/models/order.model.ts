@@ -16,9 +16,9 @@ export class Order {
     isEntrega: boolean;
     formaPagamento: PaymentMethod;
     taxaEntrega: number;
-    items: OrderItem[];
+    items: OrderItem[]; //Ele deve ser opcional, porque caso venha do front ele tem um valor, porém se vim do back ele não possui valor
     status: OrderStatus;
-    observacoes: any;
+    observacoes: string;
 
     constructor(data: any) {
         this.id = data.id;
@@ -32,7 +32,16 @@ export class Order {
         this.taxaEntrega = data.taxaEntrega;
         this.items = data.items;
         this.status = data.status ?? OrderStatus.pendente;
+        this.observacoes = data.observacoes;
     }
+
+    // getSubTotal(): number {
+    //     return this.items?.map(item => item.getTotal()).reduce((total, next) => total + next, 0) ?? 0;
+    // } //Essa função percorre todos os itens do nosso pedido.
+
+    // getTotal(): number {
+    //     return this.getSubTotal() + this.taxaEntrega;
+    // }
 };
 
 export enum OrderStatus {
@@ -115,23 +124,6 @@ export const orderConverter: FirestoreDataConverter<Order> = {
                 descricao: order.formaPagamento.descricao
             },
             taxaEntrega: order.empresa.taxaEntrega,
-            items: order.items.map(item => {
-                return {
-                    produto: {
-                        id: item.produto.id,
-                        nome: item.produto.nome,
-                        descricao: item.produto.descricao,
-                        preco: item.produto.preco,
-                        imagem: item.produto.imagem,
-                        categoria: {
-                            id: item.produto.categoria.id,
-                            descricao: item.produto.categoria.descricao,
-                        }
-                    },
-                    qtde: item.qtde,
-                    observacao: item.observacao
-                };
-            }),
             status: order.status,
             observacoes: order.observacoes
         }
