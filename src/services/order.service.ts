@@ -4,6 +4,7 @@ import { OrderRepository } from "../repositories/order.repository.js";
 import { CompanyRepository } from "../repositories/company.repository.js";
 import { PaymentMethodRepository } from "../repositories/payment-method.repository.js";
 import { ProductRepository } from "../repositories/product.repository.js";
+import { OrderItem } from "../models/order-item.model.js";
 
 export class OrderService {
 
@@ -46,4 +47,8 @@ export class OrderService {
     async search(query: QueryParamsOrder): Promise<Order[]> {
        return this.orderRepository.search(query);// Faz a chamada do repository
     };
+
+    async getItems(pedidoId: string): Promise<OrderItem[]> {
+        return this.orderRepository.getItems(pedidoId);
+    }
 };
