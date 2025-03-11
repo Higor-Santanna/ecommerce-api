@@ -16,32 +16,36 @@ export class Order {
     isEntrega: boolean;
     formaPagamento: PaymentMethod;
     taxaEntrega: number;
-    items: OrderItem[]; //Ele deve ser opcional, porque caso venha do front ele tem um valor, porém se vim do back ele não possui valor
+    items?: OrderItem[]; //Ele deve ser opcional, porque caso venha do front ele tem um valor, porém se vim do back ele não possui valor
     status: OrderStatus;
     observacoes: string;
+    subtotal: number;
+    total: number;
 
     constructor(data: any) {
         this.id = data.id;
-        this.empresa = data.empresa;
+        this.empresa = new Company(data.empresa);
         this.cliente = data.cliente;
         this.endereco = data.endereco;
         this.cpfCnpjCupom = data.cpfCnpjCupom;
         this.data = data.data instanceof Timestamp ? data.data.toDate() : data.data //Se a data for um Timestamp, eu pego ele com um toDate e faço a conversão dele para uma data, caso ele não seja eu apenas faço atribuição direta
         this.isEntrega = data.isEntrega;
-        this.formaPagamento = data.formaPagamento;
+        this.formaPagamento = new PaymentMethod(data.formaPagamento);
         this.taxaEntrega = data.taxaEntrega;
-        this.items = data.items;
+        this.items = data.items?.map((item: any) => new OrderItem(item));
         this.status = data.status ?? OrderStatus.pendente;
         this.observacoes = data.observacoes;
+        this.subtotal = data.subtotal;
+        this.total = data.total;
     }
 
-    // getSubTotal(): number {
-    //     return this.items?.map(item => item.getTotal()).reduce((total, next) => total + next, 0) ?? 0;
-    // } //Essa função percorre todos os itens do nosso pedido.
+    getSubtotal(): number {
+        return this.items?.map(item => item.getTotal()).reduce((total, next) => total + next, 0) ?? 0;
+    } //Essa função percorre todos os itens do nosso pedido.
 
-    // getTotal(): number {
-    //     return this.getSubTotal() + this.taxaEntrega;
-    // }
+    getTotal(): number {
+        return this.getSubtotal() + this.taxaEntrega;
+    }
 };
 
 export enum OrderStatus {
@@ -123,9 +127,11 @@ export const orderConverter: FirestoreDataConverter<Order> = {
                 id: order.formaPagamento.id,
                 descricao: order.formaPagamento.descricao
             },
-            taxaEntrega: order.empresa.taxaEntrega,
+            taxaEntrega: order.taxaEntrega,
             status: order.status,
-            observacoes: order.observacoes
+            observacoes: order.observacoes,
+            subtotal: order.getSubtotal(),
+            total: order.getTotal()
         }
     },
     fromFirestore: (snapshot: QueryDocumentSnapshot): Order => {

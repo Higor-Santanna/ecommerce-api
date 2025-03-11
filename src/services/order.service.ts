@@ -32,7 +32,7 @@ export class OrderService {
         }
         order.formaPagamento = formaPagamento;//atribui a forma de pagamento que está no banco de dados, para a forma de pagemento do pedido.
 
-        for (let item of order.items) {
+        for (let item of order.items!) {
             const produto = await this.productRepository.getById(item.produto.id);
             if(!produto){
                 throw new NotFoundError("Produto não encontrado!");

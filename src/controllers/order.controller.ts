@@ -4,7 +4,7 @@ import { OrderService } from "../services/order.service.js";
 
 export class OrdersController{
     static async save(req: Request, res: Response){
-        const order = req.body as Order;
+        const order = new Order(req.body);
         await new OrderService().save(order);
         res.status(201).send({
             message: "Pedido criado com sucesso!"
