@@ -1,5 +1,5 @@
 import { getFirestore, CollectionReference } from "firebase-admin/firestore";
-import { Order, orderConverter, QueryParamsOrder } from "../models/order.model.js";
+import { Order, orderConverter, OrderStatus, QueryParamsOrder } from "../models/order.model.js";
 import dayjs from 'dayjs'
 import { OrderItem, orderItemConverter } from "../models/order-item.model.js";
 import { NotFoundError } from "../errors/not-found.error.js";
@@ -69,5 +69,16 @@ export class OrderRepository {
         }
         order.items = await this.getItems(pedidoId); //Essa função faz com que ela retorne um array de itens. Ela utiliza a funçãoa acima como base.
         return order;
-    }
+    };
+
+    async changeStatus(pedidoId : string, status: OrderStatus){
+        this.collection
+        .doc(pedidoId)
+        .withConverter(null)//É passado o converter como nulo porque precisamos alterar apenas o status e não o pedido todo. O converter por padrão espera que nós passamos todo o pedido atualizado.
+        .set({
+            status: status
+        }, {
+            merge: true
+        }); // O set altera o status do pedido para o status que ele está recebendo. O merge tema função de deixar alterar apenas o status, caso não colocarmos ele todo os dados do nosso pedido será excluido e alterado para o status.
+    };
 }

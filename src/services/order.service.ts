@@ -1,5 +1,5 @@
 import { NotFoundError } from "../errors/not-found.error.js";
-import { Order, QueryParamsOrder } from "../models/order.model.js";
+import { Order, OrderStatus, QueryParamsOrder } from "../models/order.model.js";
 import { OrderRepository } from "../repositories/order.repository.js";
 import { CompanyRepository } from "../repositories/company.repository.js";
 import { PaymentMethodRepository } from "../repositories/payment-method.repository.js";
@@ -12,6 +12,7 @@ export class OrderService {
     private companyRepository: CompanyRepository;
     private paymentMethodRepository: PaymentMethodRepository;
     private productRepository: ProductRepository;
+    static orderRepository: any;
 
     constructor(){
         this.orderRepository = new OrderRepository();
@@ -54,5 +55,9 @@ export class OrderService {
 
     async getById(pedidoId: string): Promise<Order> {
         return this.orderRepository.getById(pedidoId);
-    }
+    };
+
+    async changeStatus(pedidoId: string, status: OrderStatus){
+        await this.orderRepository.changeStatus(pedidoId, status);
+    };
 };
