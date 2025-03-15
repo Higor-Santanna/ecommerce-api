@@ -2,6 +2,7 @@ import { getFirestore, CollectionReference } from "firebase-admin/firestore";
 import { Order, orderConverter, QueryParamsOrder } from "../models/order.model.js";
 import dayjs from 'dayjs'
 import { OrderItem, orderItemConverter } from "../models/order-item.model.js";
+import { NotFoundError } from "../errors/not-found.error.js";
 
 export class OrderRepository {
 
@@ -59,5 +60,14 @@ export class OrderRepository {
         const pedidoRef = this.collection.doc(pedidoId); //Faz a referência para o pedido
         const snapshot = await pedidoRef.collection("items").withConverter(orderItemConverter).get(); //nesse ponto ele tira uma foto de todos os pedidos que estão na coleção
         return snapshot.docs.map(doc => doc.data()); //retorna todos os items mapeados
+    };
+
+    async getById(pedidoId: string): Promise<Order> {
+        const order = (await this.collection.doc(pedidoId).get()).data()
+        if(!order) {
+            throw new NotFoundError("Pedido não encontrado!");
+        }
+        order.items = await this.getItems(pedidoId); //Essa função faz com que ela retorne um array de itens. Ela utiliza a funçãoa acima como base.
+        return order;
     }
 }

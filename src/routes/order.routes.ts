@@ -12,4 +12,6 @@ orderRoutes.get("/orders", celebrate({ [Segments.QUERY]: searchParamsOrderQueryS
 
 orderRoutes.get("/orders/:id/items", expressAsyncHandler(OrdersController.getItems));
 
+orderRoutes.get("/orders/:id", expressAsyncHandler(OrdersController.getById));
+
 export { orderRoutes }
