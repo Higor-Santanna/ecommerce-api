@@ -16,4 +16,12 @@ export class AuthController {
         await new AuthService().recovery(email);
         res.end();
     };
+
+    static async signin(req: Request, res: Response){
+        const UserRecord = await new AuthService().signin();
+        const token = await UserRecord.user.getIdToken(true);
+        res.send({
+            token: token
+        })
+    };
 };
