@@ -1,0 +1,1 @@
+export const phoneRegexPattern = /^(?!.*00000000)[1-9][0-9]{9,10}$/;
