@@ -39,6 +39,7 @@ export class CompanyService {
             _company.logoMarca = await this.uploadFileService.upload(company.logoMarca);
         };
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         _company.cpfCnpj = company.cpfCnpj,
         _company.razaoSocial = company.razaoSocial,
         _company.nomeFantasia = company.nomeFantasia,
