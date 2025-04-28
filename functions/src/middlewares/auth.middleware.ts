@@ -7,9 +7,6 @@ import { NotFoundError } from "../errors/not-found.error.js";
 
 export const auth = (app: express.Express) =>{
     app.use(async (req: Request, res: Response, next: NextFunction) => {
-        // if (req.method === "POST" && (req.url.endsWith("/auth/login") || req.url.endsWith("/auth/recovery"))){
-        //     return next();
-        // };
         if(isRouteUnAuthenticated(req)){
             return next();
         }
