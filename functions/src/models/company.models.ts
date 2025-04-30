@@ -1,6 +1,7 @@
 import { Joi } from "celebrate";
 import { phoneRegexPattern } from "../utils/regex-utils.js";
 import { DocumentData, FirestoreDataConverter, QueryDocumentSnapshot } from "firebase-admin/firestore";
+import { validator } from "cpf-cnpj-validator";
 
 export class Company {
     id: string;
@@ -30,11 +31,13 @@ export class Company {
     }
 }
 
+const cpfCnpjValidator = Joi.extend(validator)
+
 export const newCompanySchema = Joi.object().keys({
     logoMarca: Joi.string().base64().required(),
     cpfCnpj: Joi.alternatives().try(
-        Joi.string().length(11).required(),
-        Joi.string().length(14).required()
+        cpfCnpjValidator.document().cpf(),
+        cpfCnpjValidator.document().cnpj()
     ),
     razaoSocial: Joi.string().trim().required(),
     nomeFantasia: Joi.string().trim().required(),
