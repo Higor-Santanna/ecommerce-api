@@ -3,6 +3,7 @@ import { AuthService } from "../services/auth.service.js";
 
 export class AuthController {
     static async login(req: Request, res: Response){
+        // #swagger.tags = ['Auth']
         const {email, password} = req.body;
         const UserRecord = await new AuthService().login(email, password);
         const token = await UserRecord.user.getIdToken(true);
@@ -12,12 +13,14 @@ export class AuthController {
     };
 
     static async recovery(req: Request, res: Response){
+        // #swagger.tags = ['Auth']
         const {email} = req.body;
         await new AuthService().recovery(email);
         res.end();
     };
 
     static async signin(req: Request, res: Response){
+        // #swagger.tags = ['Auth']
         const UserRecord = await new AuthService().signin();
         const token = await UserRecord.user.getIdToken(true);
         res.send({
