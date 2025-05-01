@@ -32,13 +32,14 @@ export class Company {
 }
 
 const cpfCnpjValidator = Joi.extend(validator)
+const cpfCnpjSchemaValidator = Joi.alternatives().try(
+    cpfCnpjValidator.document().cpf(),
+    cpfCnpjValidator.document().cnpj()
+).required()
 
 export const newCompanySchema = Joi.object().keys({
     logoMarca: Joi.string().base64().required(),
-    cpfCnpj: Joi.alternatives().try(
-        cpfCnpjValidator.document().cpf(),
-        cpfCnpjValidator.document().cnpj()
-    ),
+    cpfCnpj: cpfCnpjSchemaValidator,
     razaoSocial: Joi.string().trim().required(),
     nomeFantasia: Joi.string().trim().required(),
     telefone: Joi.string().regex(phoneRegexPattern).required(),
@@ -54,10 +55,7 @@ export const updateCompanySchema = Joi.object().keys({
         Joi.string().base64().required(),
         Joi.string().uri().required(),
     ).required(),
-    cpfCnpj: Joi.alternatives().try(
-        Joi.string().length(11).required(),
-        Joi.string().length(14).required()
-    ).required(),
+    cpfCnpj: cpfCnpjSchemaValidator,
     razaoSocial: Joi.string().trim().required(),
     nomeFantasia: Joi.string().trim().required(),
     telefone: Joi.string().regex(phoneRegexPattern).required(),
