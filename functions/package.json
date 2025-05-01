@@ -7,8 +7,9 @@
     "lint": "npx eslint .",
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "swagger": "node swagger.js",
     "start": "firebase emulators:start --only functions",
-    "deploy": "npm run lint && npm run build && firebase deploy --only functions",
+    "deploy": "npm run lint && npm run swagger && npm run build && firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
   "engines": {
@@ -23,15 +24,18 @@
     "file-type": "^19.6.0",
     "firebase": "^11.1.0",
     "firebase-admin": "^13.3.0",
-    "firebase-functions": "^6.0.1"
+    "firebase-functions": "^6.0.1",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.1",
+    "@types/swagger-ui-express": "^4.1.8",
     "eslint": "^9.22.0",
     "firebase-functions-test": "^3.1.0",
     "globals": "^16.0.0",
+    "swagger-autogen": "^2.23.7",
     "typescript": "^4.9.0",
     "typescript-eslint": "^8.27.0"
   },
