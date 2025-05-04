@@ -55,18 +55,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "example": "any"
-                  },
-                  "password": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/login"
               }
             }
           }
@@ -86,15 +79,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/recovery"
               }
             }
           }
@@ -126,7 +115,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -137,6 +131,21 @@
         "responses": {
           "201": {
             "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addUser"
+              }
+            }
           }
         }
       }
@@ -162,7 +171,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -183,6 +197,21 @@
         "responses": {
           "201": {
             "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateUser"
+              }
+            }
           }
         }
       },
@@ -206,7 +235,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/companies": {
@@ -220,7 +254,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -231,6 +270,21 @@
         "responses": {
           "201": {
             "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addCompany"
+              }
+            }
           }
         }
       }
@@ -256,7 +310,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -278,6 +337,21 @@
           "200": {
             "description": "OK"
           }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateCompany"
+              }
+            }
+          }
         }
       }
     },
@@ -292,7 +366,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -303,6 +382,21 @@
         "responses": {
           "201": {
             "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addCategory"
+              }
+            }
           }
         }
       }
@@ -328,7 +422,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -349,6 +448,21 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateCategory"
+              }
+            }
           }
         }
       },
@@ -372,7 +486,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/products": {
@@ -386,7 +505,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -397,6 +521,21 @@
         "responses": {
           "201": {
             "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addProduct"
+              }
+            }
           }
         }
       }
@@ -421,7 +560,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/products/{id}": {
@@ -445,7 +589,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -466,6 +615,21 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateProduct"
+              }
+            }
           }
         }
       },
@@ -489,7 +653,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/payment-methods": {
@@ -503,7 +672,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -514,6 +688,21 @@
         "responses": {
           "201": {
             "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addPaymentMethod"
+              }
+            }
           }
         }
       }
@@ -539,7 +728,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -560,6 +754,21 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updatePaymentMethod"
+              }
+            }
           }
         }
       },
@@ -583,7 +792,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/orders": {
@@ -597,6 +811,21 @@
           "201": {
             "description": "Created"
           }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addOrder"
+              }
+            }
+          }
         }
       },
       "get": {
@@ -609,7 +838,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/orders/{id}/items": {
@@ -633,7 +867,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/orders/{id}": {
@@ -657,7 +896,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/orders/{id}/status": {
@@ -682,20 +926,512 @@
             "description": "No Content"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/updateOrderStatus"
               }
             }
           }
         }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "usuario@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "123456"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "recovery": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "usuario@mail.com"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "addUser": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "João da Silva"
+          },
+          "email": {
+            "type": "string",
+            "example": "joaodasilva@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "1234567"
+          }
+        },
+        "required": [
+          "nome",
+          "email",
+          "password"
+        ]
+      },
+      "updateUser": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "João da Silva"
+          },
+          "email": {
+            "type": "string",
+            "example": "joaodasilva@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "1234567"
+          }
+        },
+        "required": [
+          "nome",
+          "email",
+          "password"
+        ]
+      },
+      "addCompany": {
+        "type": "object",
+        "properties": {
+          "logomarca": {
+            "type": "string",
+            "example": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABsSFBcUERsXFhceHBsgKEIrKCUlKFE6PTBCYFVlZF9VXVtqeJmBanGQc1tdhbWGkJ6jq62rZ4C8ybqmx5moq6T/2wBDARweHigjKE4rK06kbl1upKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKT/wAARCAAKAAoDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDpqKKKAP/Z"
+          },
+          "cpfCnpj": {
+            "type": "string",
+            "example": "15647055000165"
+          },
+          "razaoSocial": {
+            "type": "string",
+            "example": "Jornada Dev Media Digital Solutions Ltda"
+          },
+          "nomeFantasia": {
+            "type": "string",
+            "example": "Jornada de Programador"
+          },
+          "telefone": {
+            "type": "string",
+            "example": "64999999999"
+          },
+          "horarioFuncionamento": {
+            "type": "string",
+            "example": "De Seg a Sex das 08h às 18h"
+          },
+          "endereco": {
+            "type": "string",
+            "example": "Rua Contrua seu Futuro, 100, Centro"
+          },
+          "localizacao": {
+            "type": "string",
+            "example": "https://maps.app.goo.gl/uXL3hjfu3vR1u4uY9"
+          },
+          "taxaEntrega": {
+            "type": "number",
+            "example": 9.99
+          },
+          "ativa": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "logomarca",
+          "cpfCnpj",
+          "razaoSocial",
+          "nomeFantasia",
+          "telefone",
+          "horarioFuncionamento",
+          "endereco",
+          "localizacao",
+          "taxaEntrega"
+        ]
+      },
+      "updateCompany": {
+        "type": "object",
+        "properties": {
+          "logomarca": {
+            "type": "string",
+            "example": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABsSFBcUERsXFhceHBsgKEIrKCUlKFE6PTBCYFVlZF9VXVtqeJmBanGQc1tdhbWGkJ6jq62rZ4C8ybqmx5moq6T/2wBDARweHigjKE4rK06kbl1upKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKT/wAARCAAKAAoDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDpqKKKAP/Z"
+          },
+          "cpfCnpj": {
+            "type": "string",
+            "example": "15647055000165"
+          },
+          "razaoSocial": {
+            "type": "string",
+            "example": "Jornada Dev Media Digital Solutions Ltda"
+          },
+          "nomeFantasia": {
+            "type": "string",
+            "example": "Jornada de Programador"
+          },
+          "telefone": {
+            "type": "string",
+            "example": "64999999999"
+          },
+          "horarioFuncionamento": {
+            "type": "string",
+            "example": "De Seg a Sex das 08h às 18h"
+          },
+          "endereco": {
+            "type": "string",
+            "example": "Rua Contrua seu Futuro, 100, Centro"
+          },
+          "localizacao": {
+            "type": "string",
+            "example": "https://maps.app.goo.gl/uXL3hjfu3vR1u4uY9"
+          },
+          "taxaEntrega": {
+            "type": "number",
+            "example": 9.99
+          },
+          "ativa": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "logomarca",
+          "cpfCnpj",
+          "razaoSocial",
+          "nomeFantasia",
+          "telefone",
+          "horarioFuncionamento",
+          "endereco",
+          "localizacao",
+          "taxaEntrega",
+          "ativa"
+        ]
+      },
+      "addCategory": {
+        "type": "object",
+        "properties": {
+          "descricao": {
+            "type": "string",
+            "example": "Importados"
+          },
+          "ativa": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "descricao"
+        ]
+      },
+      "updateCategory": {
+        "type": "object",
+        "properties": {
+          "descricao": {
+            "type": "string",
+            "example": "Nacionais"
+          },
+          "ativa": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "required": [
+          "descricao",
+          "ativa"
+        ]
+      },
+      "addProduct": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "Smart TV Samsung 55'"
+          },
+          "descricao": {
+            "type": "string",
+            "example": "A maior TV do momento."
+          },
+          "preco": {
+            "type": "number",
+            "example": 5479.99
+          },
+          "imagem": {},
+          "categoria": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "2mkre4j5gPo0BFGl5pyi"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "ativa": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "nome",
+          "preco",
+          "categoria"
+        ]
+      },
+      "updateProduct": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "Smart TV Samsung 55'"
+          },
+          "descricao": {
+            "type": "string",
+            "example": "A maior TV do momento."
+          },
+          "preco": {
+            "type": "number",
+            "example": 5479.99
+          },
+          "imagem": {},
+          "categoria": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "2mkre4j5gPo0BFGl5pyi"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "ativa": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "required": [
+          "nome",
+          "preco",
+          "categoria",
+          "ativa"
+        ]
+      },
+      "addPaymentMethod": {
+        "type": "object",
+        "properties": {
+          "descricao": {
+            "type": "string",
+            "example": "Pix"
+          },
+          "ativa": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "descricao"
+        ]
+      },
+      "updatePaymentMethod": {
+        "type": "object",
+        "properties": {
+          "descricao": {
+            "type": "string",
+            "example": "Cartão de Crédito"
+          },
+          "ativa": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "required": [
+          "descricao",
+          "ativa"
+        ]
+      },
+      "addOrder": {
+        "type": "object",
+        "properties": {
+          "empresa": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "1SBiiMrf4JUUFG57M76F"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "cliente": {
+            "type": "object",
+            "properties": {
+              "nome": {
+                "type": "string",
+                "example": "João da Silva"
+              },
+              "telefone": {
+                "type": "string",
+                "example": "11999999999"
+              }
+            },
+            "required": [
+              "nome",
+              "telefone"
+            ]
+          },
+          "endereco": {
+            "type": "object",
+            "properties": {
+              "cep": {
+                "type": "string",
+                "example": "75900000"
+              },
+              "logradouro": {
+                "type": "string",
+                "example": "Rua Xuxu Beleza"
+              },
+              "numero": {
+                "type": "string",
+                "example": "11"
+              },
+              "bairro": {
+                "type": "string",
+                "example": "Setor XPTO"
+              },
+              "complemento": {
+                "type": "string",
+                "example": "Qd 1 Lt 2"
+              },
+              "cidade": {
+                "type": "string",
+                "example": "Não-Me-Toque"
+              },
+              "uf": {
+                "type": "string",
+                "example": "RS"
+              }
+            },
+            "required": [
+              "logradouro",
+              "numero",
+              "bairro",
+              "complemento",
+              "cidade",
+              "uf"
+            ]
+          },
+          "cpfCnpjCupom": {},
+          "isEntrega": {
+            "type": "boolean",
+            "example": true
+          },
+          "formaPagamento": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "NdmCoYl0iT3gHwhO0pyQ"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "taxaEntrega": {
+            "type": "number",
+            "example": 100
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "produto": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "3UfzI8CSCaK5eC0UJ8gI"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                "qtde": {
+                  "type": "number",
+                  "example": 1
+                },
+                "observacao": {}
+              },
+              "required": [
+                "produto",
+                "qtde"
+              ]
+            }
+          },
+          "status": {
+            "type": "string",
+            "example": "pendente"
+          },
+          "observacoes": {}
+        },
+        "required": [
+          "empresa",
+          "cliente",
+          "isEntrega",
+          "formaPagamento",
+          "taxaEntrega",
+          "items"
+        ]
+      },
+      "updateOrderStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "aprovado"
+          }
+        },
+        "required": [
+          "status"
+        ]
       }
     }
   }

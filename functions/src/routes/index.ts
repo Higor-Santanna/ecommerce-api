@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import { userRoutes } from "./user.routes.js";
 import { authRoutes } from "./auth.routes.js";
 import { companyRoutes } from "./companies.routes.js";
@@ -12,12 +12,18 @@ const routes = (app: express.Express) => {
     app.use(express.json({limit: "5mb"}));
     app.use(authRoutes);
     app.use(allowAnonymousUser);
-    app.use(userRoutes);
-    app.use(companyRoutes);
-    app.use(categoryRoutes);
-    app.use(productRoutes);
-    app.use(paymentMethodsRoutes);
-    app.use(orderRoutes)
+
+    const authenticatedRoutes = Router();
+    authenticatedRoutes.use(userRoutes);
+    authenticatedRoutes.use(companyRoutes);
+    authenticatedRoutes.use(categoryRoutes);
+    authenticatedRoutes.use(productRoutes);
+    authenticatedRoutes.use(paymentMethodsRoutes);
+    authenticatedRoutes.use(orderRoutes);
+    app.use(
+        // #swagger.security = [{ "bearerAuth": [] }]
+        authenticatedRoutes
+    );
 };
 
 export { routes }
