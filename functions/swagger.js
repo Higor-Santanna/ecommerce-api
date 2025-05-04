@@ -7,7 +7,7 @@ const doc = {
   },
   servers: [
     {
-      url: 'http//127.0.0.1:5001/e-commerce-curso-434a3/us-central1/api',
+      url: 'http://127.0.0.1:5001/e-commerce-curso-434a3/us-central1/api',
       description: 'Dev'
     },
   ],
