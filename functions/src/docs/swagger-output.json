@@ -1408,7 +1408,10 @@
           },
           "status": {
             "type": "string",
-            "example": "pendente"
+            "enum": [
+              "pendente",
+              null
+            ]
           },
           "observacoes": {}
         },
@@ -1426,7 +1429,12 @@
         "properties": {
           "status": {
             "type": "string",
-            "example": "aprovado"
+            "enum": [
+              "aprovado",
+              "entrega",
+              "concluido",
+              "cancelado"
+            ]
           }
         },
         "required": [
