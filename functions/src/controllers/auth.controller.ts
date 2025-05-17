@@ -16,6 +16,21 @@ export class AuthController {
                      }
                  }
              }
+            #swagger.responses[200] = {
+                 description: 'Token do usuário autenticado',
+                 content: {
+                     "application/json": {
+                         schema: {
+                             type: 'object',
+                             properties: {
+                                'token': {
+                                    type: 'string'
+                                }
+                             }
+                         }  
+                     }
+                 }
+             }
         */
         const {email, password} = req.body;
         const UserRecord = await new AuthService().login(email, password);
@@ -42,13 +57,30 @@ export class AuthController {
         */
         const {email} = req.body;
         await new AuthService().recovery(email);
-        res.end();
-    };
+        res.status(204).end();
+    }; 
 
     static async signin(req: Request, res: Response){
         // #swagger.tags = ['Auth']
         // #swagger.summary = 'Autenticação anônima de usuários clientes'
         // #swagger.description = 'Rota utilizada para autenticação de usuários clientes para realização de pedidos sem a necessidade de um cadastro prévio.'
+        /*
+            #swagger.responses[200] = {
+                description: 'Token do usuário anônimo',
+                content: {
+                    "application/json": {
+                        schema: {
+                            type: 'object',
+                            properties: {
+                                'token': {
+                                    type: 'string'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+         */
         const UserRecord = await new AuthService().signin();
         const token = await UserRecord.user.getIdToken(true);
         res.send({

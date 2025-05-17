@@ -8,6 +8,32 @@ export class UsersController {
         // #swagger.tags = ['Users']
         // #swagger.summary = 'Obtenha todos os usuários cadastrados'
         // #swagger.description = 'Obtenha todos os usuários da empresa.'
+        /* 
+            #swagger.responses[200] = {
+                description: 'Dados do usuário',
+                content: {
+                    "aplications/json": {
+                        schemas: {
+                            type: 'array',
+                            items: {
+                                type: 'object',
+                                properties: {
+                                    id: {
+                                        type: 'string'
+                                    },
+                                    nome: {
+                                        type: 'string'
+                                    },
+                                    email: {
+                                        type: 'string'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        */
         res.send(await new UserService().getAll()); //Essa função do Express automaticamente converte o objeto JavaScript users em uma string JSON e a envia como resposta.
     };
 
@@ -39,6 +65,29 @@ export class UsersController {
         // #swagger.tags = ['Users']
         // #swagger.summary = 'Busque um usuário pelo id'
         // #swagger.description = 'Obtenha um usuário pelo id.'
+        /* 
+            #swagger.responses[200] = {
+                description: 'Dados do usuário',
+                content: {
+                    "aplications/json": {
+                        schemas: {
+                            type: 'object',
+                            properties: {
+                                id: {
+                                    type: 'string'
+                                },
+                                nome: {
+                                    type: 'string'
+                                },
+                                email: {
+                                    type: 'string'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        */
         const userId = req.params.id; //pega o e armazena o ID do usuário
         res.send(await new UserService().getById(userId));
     };
