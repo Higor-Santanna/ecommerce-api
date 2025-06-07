@@ -101,33 +101,33 @@ firebase login && firebase init
 
 O Firebase CLI irá lhe fazer algumas perguntas:
 
-<p style="font-weight: bold;"> Which Firebase features do you want to set up for this directory? </p> 
+<strong> Which Firebase features do you want to set up for this directory? </strong> 
 Responda: Functions: Configure a Cloud Functions directory and its files
 
-<p style="font-weight: bold;"> First, let's associate this project directory with a Firebase project. Escolha a opção de acordo com seu momento: </p>
+<strong>> First, let's associate this project directory with a Firebase project. Escolha a opção de acordo com seu momento: </strong>>
 
   - Se você já tem um projeto criado no Firebase -> Use an existing project
   - Se você precisar criar seu projeto no Firebase -> Create a new project
 
-<p style="font-weight: bold;">What language would you like to use to write Cloud Functions?</p>
+<strong>>What language would you like to use to write Cloud Functions?</strong>>
 Responda: TypeScript
 
-<p style="font-weight: bold;">Do you want to use ESLint to catch probable bugs and enforce style?</p>
+<strong>>Do you want to use ESLint to catch probable bugs and enforce style?</strong>
 Responda: n
 
-<p style="font-weight: bold;">File functions/package.json already exists. Overwrite?</p>
+<strong>>File functions/package.json already exists. Overwrite?</strong>
 Responda: n
 
-<p style="font-weight: bold;">File functions/tsconfig.json already exists. Overwrite?</p>
+<strong>>File functions/tsconfig.json already exists. Overwrite?</strong>
 Responda: n
 
-<p style="font-weight: bold;">File functions/src/index.ts already exists. Overwrite?</p>
+<strong>>File functions/src/index.ts already exists. Overwrite?</strong>
 Responda: n
 
-<p style="font-weight: bold;">File functions/.gitignore already exists. Overwrite?</p>
+<strong>>File functions/.gitignore already exists. Overwrite?</strong>
 Responda: n
 
-<p style="font-weight: bold;">Do you want to install dependencies with npm now?</p>
+<strong>>Do you want to install dependencies with npm now?</strong>>
 Responda: y
 
 <h5>4.3 Executar localmente</h5>
